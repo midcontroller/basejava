@@ -20,8 +20,3 @@ public interface Storage {
   // Maintenance
   void clear();
 }
-
-// Storage контракт
-// AbstractStorage
-//     AbstractArrayStorage                           ListStorage
-// ArrayStorage   SortedArrayStorage
