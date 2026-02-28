@@ -3,7 +3,6 @@ package org.example.storage;
 import org.example.model.Resume;
 
 public interface Storage {
-  // CRUD
   void save(Resume r);
 
   Resume get(String uuid);
@@ -12,11 +11,9 @@ public interface Storage {
 
   void delete(String uuid);
 
-  // Queries
   int size();
 
   Resume[] getAll();
 
-  // Maintenance
   void clear();
 }
