@@ -10,7 +10,7 @@ public abstract class AbstractStorage implements Storage {
   @Override
   public final void save(Resume r) {
     Objects.requireNonNull(r, "Resume must not be null");
-    String uuid = Objects.requireNonNull(r.getUuid(), "Uuid must not be null");
+    String uuid = r.getUuid();
 
     int index = findIndex(uuid);
     if (index >= 0) {
@@ -29,13 +29,13 @@ public abstract class AbstractStorage implements Storage {
       throw new ResumeNotFoundException(uuid);
     }
 
-    return doGet(index);
+    return doGet(index, uuid);
   }
 
   @Override
   public final void update(Resume r) {
     Objects.requireNonNull(r, "Resume must not be null");
-    String uuid = Objects.requireNonNull(r.getUuid(), "Uuid must not be null");
+    String uuid = r.getUuid();
 
     int index = findIndex(uuid);
     if (index < 0) {
@@ -54,37 +54,16 @@ public abstract class AbstractStorage implements Storage {
       throw new ResumeNotFoundException(uuid);
     }
 
-    doDelete(index);
-  }
-
-  @Override
-  public final int size() {
-    return doSize();
-  }
-
-  @Override
-  public final Resume[] getAll() {
-    return doGetAll();
-  }
-
-  @Override
-  public final void clear() {
-    doClear();
+    doDelete(index, uuid);
   }
 
   protected abstract int findIndex(String uuid);
 
   protected abstract void doSave(int index, Resume r);
 
-  protected abstract Resume doGet(int index);
+  protected abstract Resume doGet(int index, String uuid);
 
   protected abstract void doUpdate(int index, Resume r);
 
-  protected abstract void doDelete(int index);
-
-  protected abstract int doSize();
-
-  protected abstract Resume[] doGetAll();
-
-  protected abstract void doClear();
+  protected abstract void doDelete(int index, String uuid);
 }

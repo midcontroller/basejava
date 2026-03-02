@@ -1,7 +1,7 @@
 package org.example.storage;
 
-class SortedArrayStorageTest extends AbstractArrayStorageTest {
-  SortedArrayStorageTest() {
+public class SortedArrayStorageTest extends AbstractArrayStorageTest {
+  public SortedArrayStorageTest() {
     super(new SortedArrayStorage());
   }
 }

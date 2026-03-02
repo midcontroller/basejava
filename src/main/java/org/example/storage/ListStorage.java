@@ -14,7 +14,7 @@ public class ListStorage extends AbstractStorage {
   }
 
   @Override
-  protected Resume doGet(int index) {
+  protected Resume doGet(int index, String uuid) {
     return storage.get(index);
   }
 
@@ -24,22 +24,22 @@ public class ListStorage extends AbstractStorage {
   }
 
   @Override
-  protected void doDelete(int index) {
+  protected void doDelete(int index, String uuid) {
     storage.remove(index);
   }
 
   @Override
-  protected int doSize() {
+  public int size() {
     return storage.size();
   }
 
   @Override
-  protected Resume[] doGetAll() {
+  public Resume[] getAll() {
     return storage.toArray(new Resume[0]);
   }
 
   @Override
-  protected void doClear() {
+  public void clear() {
     storage.clear();
   }
 

@@ -20,7 +20,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
   }
 
   @Override
-  protected Resume doGet(int index) {
+  protected Resume doGet(int index, String uuid) {
     return storage[index];
   }
 
@@ -30,23 +30,28 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
   }
 
   @Override
-  protected void doDelete(int index) {
+  protected void doDelete(int index, String uuid) {
     remove(index);
     storage[--size] = null;
   }
 
   @Override
-  protected int doSize() {
+  public int size() {
     return size;
   }
 
   @Override
-  protected Resume[] doGetAll() {
+  public String toString() {
+    return "AbstractArrayStorage{}";
+  }
+
+  @Override
+  public Resume[] getAll() {
     return Arrays.copyOf(storage, size);
   }
 
   @Override
-  protected void doClear() {
+  public void clear() {
     Arrays.fill(storage, 0, size, null);
     size = 0;
   }
