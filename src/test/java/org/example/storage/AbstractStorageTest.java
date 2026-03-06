@@ -12,9 +12,8 @@ import org.junit.jupiter.api.Test;
 
 public abstract class AbstractStorageTest {
 
-  protected final Storage storage;
-
   protected static final String UUID_1 = "uuid1";
+
   protected static final String UUID_2 = "uuid2";
   protected static final String UUID_3 = "uuid3";
   protected static final String UUID_4 = "uuid4";
@@ -23,6 +22,7 @@ public abstract class AbstractStorageTest {
   protected static final Resume R2 = new Resume(UUID_2);
   protected static final Resume R3 = new Resume(UUID_3);
   protected static final Resume R4 = new Resume(UUID_4);
+  protected final Storage storage;
 
   protected AbstractStorageTest(Storage storage) {
     this.storage = storage;
