@@ -12,19 +12,19 @@ public abstract class AbstractStorage implements Storage {
     Objects.requireNonNull(r, "Resume must not be null");
     String uuid = r.getUuid();
 
-    int index = findIndex(uuid);
-    if (index >= 0) {
+    int key = searchKey(uuid);
+    if (key >= 0) {
       throw new ResumeAlreadyExistsException(uuid);
     }
 
-    doSave(index, r);
+    doSave(key, r);
   }
 
   @Override
   public final Resume get(String uuid) {
     Objects.requireNonNull(uuid, "Uuid must not be null");
 
-    int index = findIndex(uuid);
+    int index = searchKey(uuid);
     if (index < 0) {
       throw new ResumeNotFoundException(uuid);
     }
@@ -37,7 +37,7 @@ public abstract class AbstractStorage implements Storage {
     Objects.requireNonNull(r, "Resume must not be null");
     String uuid = r.getUuid();
 
-    int index = findIndex(uuid);
+    int index = searchKey(uuid);
     if (index < 0) {
       throw new ResumeNotFoundException(uuid);
     }
@@ -49,15 +49,15 @@ public abstract class AbstractStorage implements Storage {
   public final void delete(String uuid) {
     Objects.requireNonNull(uuid, "Uuid must not be null");
 
-    int index = findIndex(uuid);
-    if (index < 0) {
+    int key = searchKey(uuid);
+    if (key < 0) {
       throw new ResumeNotFoundException(uuid);
     }
 
-    doDelete(index, uuid);
+    doDelete(key, uuid);
   }
 
-  protected abstract int findIndex(String uuid);
+  protected abstract int searchKey(String uuid);
 
   protected abstract void doSave(int index, Resume r);
 

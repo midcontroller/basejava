@@ -7,11 +7,10 @@ import org.example.model.Resume;
 public class MapStorage extends AbstractStorage {
 
   private final Map<String, Resume> storage = new LinkedHashMap<>();
-  int size = 0;
 
   @Override
   public int size() {
-    return size;
+    return storage.size();
   }
 
   @Override
@@ -22,18 +21,16 @@ public class MapStorage extends AbstractStorage {
   @Override
   public void clear() {
     storage.clear();
-    size = 0;
   }
 
   @Override
-  protected int findIndex(String uuid) {
+  protected int searchKey(String uuid) {
     return storage.containsKey(uuid) ? 0 : -1;
   }
 
   @Override
   protected void doSave(int index, Resume r) {
     storage.put(r.getUuid(), r);
-    size++;
   }
 
   @Override
@@ -49,6 +46,5 @@ public class MapStorage extends AbstractStorage {
   @Override
   protected void doDelete(int index, String uuid) {
     storage.remove(uuid);
-    size--;
   }
 }
