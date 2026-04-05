@@ -1,6 +1,8 @@
 package org.example.storage;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import org.example.model.Resume;
 
@@ -11,11 +13,6 @@ public class MapStorage extends AbstractStorage {
   @Override
   public int size() {
     return storage.size();
-  }
-
-  @Override
-  public Resume[] getAll() {
-    return storage.values().toArray(new Resume[0]);
   }
 
   @Override
@@ -46,5 +43,12 @@ public class MapStorage extends AbstractStorage {
   @Override
   protected void doDelete(int index, String uuid) {
     storage.remove(uuid);
+  }
+
+  @Override
+  public List<Resume> getAllSorted() {
+    List<Resume> resumes = new ArrayList<>(storage.values());
+    resumes.sort(null);
+    return resumes;
   }
 }

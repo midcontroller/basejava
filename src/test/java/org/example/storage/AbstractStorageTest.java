@@ -1,9 +1,10 @@
 package org.example.storage;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.util.Arrays;
 import org.example.exception.ResumeAlreadyExistsException;
 import org.example.exception.ResumeNotFoundException;
 import org.example.model.Resume;
@@ -98,14 +99,14 @@ public abstract class AbstractStorageTest {
 
   @Test
   void getAll_whenStorageNotEmpty_returnsAllResumes() {
-    assertArrayEquals(new Resume[] {R1, R2, R3}, storage.getAll());
+    assertIterableEquals(Arrays.asList(R1, R2, R3), storage.getAllSorted());
   }
 
   @Test
   void clear_whenStorageNotEmpty_clearsStorage() {
     assertEquals(3, storage.size());
     storage.clear();
-    assertArrayEquals(new Resume[0], storage.getAll());
+    assertIterableEquals(Arrays.asList(), storage.getAllSorted());
     assertEquals(0, storage.size());
   }
 }

@@ -1,5 +1,6 @@
 package org.example.storage;
 
+import java.util.List;
 import org.example.model.Resume;
 
 public interface Storage {
@@ -13,7 +14,7 @@ public interface Storage {
 
   int size();
 
-  Resume[] getAll();
+  List<Resume> getAllSorted();
 
   void clear();
 }

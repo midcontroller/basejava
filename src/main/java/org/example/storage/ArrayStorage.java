@@ -1,5 +1,8 @@
 package org.example.storage;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import org.example.model.Resume;
 
 public class ArrayStorage extends AbstractArrayStorage {
@@ -22,5 +25,13 @@ public class ArrayStorage extends AbstractArrayStorage {
       }
     }
     return -1;
+  }
+
+  @Override
+  public List<Resume> getAllSorted() {
+    Resume[] actual = Arrays.copyOf(storage, size);
+    List<Resume> resumes = new ArrayList<>(Arrays.asList(actual));
+    resumes.sort(null);
+    return resumes;
   }
 }
