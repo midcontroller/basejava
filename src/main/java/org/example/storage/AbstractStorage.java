@@ -24,12 +24,12 @@ public abstract class AbstractStorage implements Storage {
   public final Resume get(String uuid) {
     Objects.requireNonNull(uuid, "Uuid must not be null");
 
-    int index = searchKey(uuid);
-    if (index < 0) {
+    int key = searchKey(uuid);
+    if (key < 0) {
       throw new ResumeNotFoundException(uuid);
     }
 
-    return doGet(index, uuid);
+    return doGet(key, uuid);
   }
 
   @Override
@@ -37,12 +37,12 @@ public abstract class AbstractStorage implements Storage {
     Objects.requireNonNull(r, "Resume must not be null");
     String uuid = r.getUuid();
 
-    int index = searchKey(uuid);
-    if (index < 0) {
+    int key = searchKey(uuid);
+    if (key < 0) {
       throw new ResumeNotFoundException(uuid);
     }
 
-    doUpdate(index, r);
+    doUpdate(key, r);
   }
 
   @Override
@@ -59,11 +59,11 @@ public abstract class AbstractStorage implements Storage {
 
   protected abstract int searchKey(String uuid);
 
-  protected abstract void doSave(int index, Resume r);
+  protected abstract void doSave(int key, Resume r);
 
-  protected abstract Resume doGet(int index, String uuid);
+  protected abstract Resume doGet(int key, String uuid);
 
-  protected abstract void doUpdate(int index, Resume r);
+  protected abstract void doUpdate(int key, Resume r);
 
-  protected abstract void doDelete(int index, String uuid);
+  protected abstract void doDelete(int key, String uuid);
 }
