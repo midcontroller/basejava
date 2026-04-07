@@ -5,17 +5,27 @@ import java.util.UUID;
 
 public class Resume implements Comparable<Resume> {
   private final String uuid;
+  private final String fullName;
 
   public Resume() {
-    this(UUID.randomUUID().toString());
+    this(UUID.randomUUID().toString(), "Default Name");
   }
 
   public Resume(String uuid) {
-    this.uuid = Objects.requireNonNull(uuid);
+    this(Objects.requireNonNull(uuid), "Default name");
+  }
+
+  public Resume(String uuid, String fullName) {
+    this.uuid = Objects.requireNonNull(uuid, "Uuid must not be null");
+    this.fullName = validateFullName(Objects.requireNonNull(fullName, "FullName must not be null"));
   }
 
   public String getUuid() {
     return uuid;
+  }
+
+  public String getFullName() {
+    return fullName;
   }
 
   @Override
@@ -45,5 +55,12 @@ public class Resume implements Comparable<Resume> {
   @Override
   public int compareTo(Resume o) {
     return uuid.compareTo(o.uuid);
+  }
+
+  private String validateFullName(String name) {
+    if (name == null || name.isBlank()) {
+      throw new IllegalArgumentException();
+    }
+    return name;
   }
 }
