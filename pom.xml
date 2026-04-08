@@ -11,18 +11,14 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.release>25</maven.compiler.release>
-
-    <!-- актуальная ветка JUnit 5 -->
-    <junit.jupiter.version>5.11.4</junit.jupiter.version>
-    <!-- JUnit 4 для старых тестов -->
+    <junit.jupiter.version>6.0.3</junit.jupiter.version>
+    <junit.platform.version>6.0.3</junit.platform.version>
     <junit4.version>4.13.2</junit4.version>
-
-    <surefire.version>3.5.2</surefire.version>
-
+    <surefire.version>3.5.5</surefire.version>
   </properties>
 
   <dependencies>
-    <!-- JUnit 5 (Jupiter) -->
+    <!-- JUnit 6 -->
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter</artifactId>
@@ -30,7 +26,15 @@
       <scope>test</scope>
     </dependency>
 
-    <!-- JUnit 4 (старые тесты) -->
+    <!-- JUnit Platform Suite -->
+    <dependency>
+      <groupId>org.junit.platform</groupId>
+      <artifactId>junit-platform-suite</artifactId>
+      <version>${junit.platform.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- JUnit 4 старые тесты -->
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
@@ -38,7 +42,7 @@
       <scope>test</scope>
     </dependency>
 
-    <!-- Двигатель, который позволяет JUnit5 запускать JUnit4 тесты -->
+    <!-- Запуск JUnit 4 тестов на JUnit Platform -->
     <dependency>
       <groupId>org.junit.vintage</groupId>
       <artifactId>junit-vintage-engine</artifactId>
@@ -48,9 +52,7 @@
   </dependencies>
 
   <build>
-      <plugins>
-
-      <!-- Тест раннер Maven -->
+    <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
