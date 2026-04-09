@@ -21,6 +21,11 @@ public class MapStorage extends AbstractStorage {
   }
 
   @Override
+  protected List<Resume> getAllAsList() {
+    return new ArrayList<>(storage.values());
+  }
+
+  @Override
   protected int searchKey(String uuid) {
     return storage.containsKey(uuid) ? 0 : -1;
   }
@@ -43,12 +48,5 @@ public class MapStorage extends AbstractStorage {
   @Override
   protected void doDelete(int key, String uuid) {
     storage.remove(uuid);
-  }
-
-  @Override
-  public List<Resume> getAllSorted() {
-    List<Resume> resumes = new ArrayList<>(storage.values());
-    resumes.sort(null);
-    return resumes;
   }
 }

@@ -1,7 +1,6 @@
 package org.example.storage;
 
 import java.util.Arrays;
-import java.util.List;
 import org.example.model.Resume;
 
 public class SortedArrayStorage extends AbstractArrayStorage {
@@ -21,10 +20,5 @@ public class SortedArrayStorage extends AbstractArrayStorage {
   @Override
   protected int searchKey(String uuid) {
     return Arrays.binarySearch(storage, 0, size, new Resume(uuid));
-  }
-
-  @Override
-  public List<Resume> getAllSorted() {
-    return Arrays.asList(Arrays.copyOf(storage, size));
   }
 }

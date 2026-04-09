@@ -1,6 +1,6 @@
 package org.example.storage;
 
-import java.util.Comparator;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,15 +16,13 @@ public class MapByFullNameStorage extends AbstractStorage {
   }
 
   @Override
-  public List<Resume> getAllSorted() {
-    return storage.values().stream()
-        .sorted(Comparator.comparing(Resume::getFullName).thenComparing(Resume::getUuid))
-        .toList();
+  public void clear() {
+    storage.clear();
   }
 
   @Override
-  public void clear() {
-    storage.clear();
+  protected List<Resume> getAllAsList() {
+    return new ArrayList<>(storage.values());
   }
 
   @Override

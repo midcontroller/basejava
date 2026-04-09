@@ -1,6 +1,7 @@
 package org.example.storage;
 
 import java.util.Arrays;
+import java.util.List;
 import org.example.exception.StorageOverflowException;
 import org.example.model.Resume;
 
@@ -49,6 +50,11 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
   public void clear() {
     Arrays.fill(storage, 0, size, null);
     size = 0;
+  }
+
+  @Override
+  protected List<Resume> getAllAsList() {
+    return Arrays.stream(storage, 0, size).toList();
   }
 
   protected abstract void remove(int index);

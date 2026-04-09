@@ -1,5 +1,7 @@
 package org.example.storage;
 
+import java.util.Comparator;
+import java.util.List;
 import java.util.Objects;
 import org.example.exception.ResumeAlreadyExistsException;
 import org.example.exception.ResumeNotFoundException;
@@ -56,6 +58,15 @@ public abstract class AbstractStorage implements Storage {
 
     doDelete(key, uuid);
   }
+
+  @Override
+  public List<Resume> getAllSorted() {
+    return getAllAsList().stream()
+        .sorted(Comparator.comparing(Resume::getFullName).thenComparing(Resume::getUuid))
+        .toList();
+  }
+
+  protected abstract List<Resume> getAllAsList();
 
   protected abstract int searchKey(String uuid);
 
