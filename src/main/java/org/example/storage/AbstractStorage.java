@@ -12,40 +12,40 @@ public abstract class AbstractStorage implements Storage {
   @Override
   public final void save(Resume r) {
     Objects.requireNonNull(r, "Resume must not be null");
-    if (isExist(r.getUuid())) {
+    Object searchKey = getSearchKey(r.getUuid());
+    if (isExist(searchKey)) {
       throw new ResumeAlreadyExistsException(r.getUuid());
     }
-    Object searchKey = getSearchKey(r.getUuid());
     doSave(searchKey, r);
   }
 
   @Override
   public final Resume get(String uuid) {
     Objects.requireNonNull(uuid, "Uuid must not be null");
-    if (!isExist(uuid)) {
+    Object searchKey = getSearchKey(uuid);
+    if (!isExist(searchKey)) {
       throw new ResumeNotFoundException(uuid);
     }
-    Object searchKey = getSearchKey(uuid);
     return doGet(searchKey);
   }
 
   @Override
   public final void update(Resume r) {
     Objects.requireNonNull(r, "Resume must not be null");
-    if (!isExist(r.getUuid())) {
+    Object searchKey = getSearchKey(r.getUuid());
+    if (!isExist(searchKey)) {
       throw new ResumeNotFoundException(r.getUuid());
     }
-    Object searchKey = getSearchKey(r.getUuid());
     doUpdate(searchKey, r);
   }
 
   @Override
   public final void delete(String uuid) {
     Objects.requireNonNull(uuid, "Uuid must not be null");
-    if (!isExist(uuid)) {
+    Object searchKey = getSearchKey(uuid);
+    if (!isExist(searchKey)) {
       throw new ResumeNotFoundException(uuid);
     }
-    Object searchKey = getSearchKey(uuid);
     doDelete(searchKey);
   }
 
@@ -56,7 +56,7 @@ public abstract class AbstractStorage implements Storage {
         .toList();
   }
 
-  protected abstract boolean isExist(String uuid);
+  protected abstract boolean isExist(Object searchKey);
 
   protected abstract void doSave(Object searchKey, Resume r);
 
