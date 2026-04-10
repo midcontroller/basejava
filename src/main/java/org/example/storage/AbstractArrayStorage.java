@@ -11,29 +11,30 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
   protected int size = 0;
 
   @Override
-  protected void doSave(int index, Resume r) {
+  protected void doSave(Object searchKey, Resume r) {
     if (size >= STORAGE_LIMIT) {
       throw new StorageOverflowException();
     }
 
-    insert(index, r);
+    insert((Integer) searchKey, r);
     size++;
   }
 
   @Override
-  protected Resume doGet(int index, String uuid) {
-    return storage[index];
+  protected Resume doGet(Object searchKey) {
+    return storage[(Integer) searchKey];
   }
 
   @Override
-  protected void doUpdate(int index, Resume r) {
-    storage[index] = r;
+  protected void doUpdate(Object searchKey, Resume r) {
+    storage[(Integer) searchKey] = r;
   }
 
   @Override
-  protected void doDelete(int index, String uuid) {
-    remove(index);
-    storage[--size] = null;
+  protected void doDelete(Object searchKey) {
+    remove((Integer) searchKey);
+    storage[size] = null;
+    size--;
   }
 
   @Override
@@ -50,6 +51,11 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
   public void clear() {
     Arrays.fill(storage, 0, size, null);
     size = 0;
+  }
+
+  @Override
+  protected boolean isExist(String uuid) {
+    return (Integer) getSearchKey(uuid) >= 0;
   }
 
   @Override
