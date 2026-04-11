@@ -17,7 +17,12 @@ public class Resume implements Comparable<Resume> {
 
   public Resume(String uuid, String fullName) {
     this.uuid = Objects.requireNonNull(uuid, "Uuid must not be null");
-    this.fullName = validateFullName(Objects.requireNonNull(fullName, "FullName must not be null"));
+
+    Objects.requireNonNull(fullName, "FullName must not be null");
+    if (fullName.isBlank()) {
+      throw new IllegalArgumentException();
+    }
+    this.fullName = fullName;
   }
 
   public String getUuid() {
@@ -55,12 +60,5 @@ public class Resume implements Comparable<Resume> {
   @Override
   public int compareTo(Resume o) {
     return uuid.compareTo(o.uuid);
-  }
-
-  private String validateFullName(String name) {
-    if (name == null || name.isBlank()) {
-      throw new IllegalArgumentException();
-    }
-    return name;
   }
 }
