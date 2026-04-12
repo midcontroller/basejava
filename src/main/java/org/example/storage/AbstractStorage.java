@@ -13,7 +13,7 @@ public abstract class AbstractStorage implements Storage {
   public final void save(Resume r) {
     Objects.requireNonNull(r, "Resume must not be null");
     Object searchKey = getSearchKey(r.getUuid());
-    if (isExist(searchKey)) {
+    if (exists(searchKey)) {
       throw new ResumeAlreadyExistsException(r.getUuid());
     }
     doSave(searchKey, r);
@@ -23,7 +23,7 @@ public abstract class AbstractStorage implements Storage {
   public final Resume get(String uuid) {
     Objects.requireNonNull(uuid, "Uuid must not be null");
     Object searchKey = getSearchKey(uuid);
-    if (!isExist(searchKey)) {
+    if (!exists(searchKey)) {
       throw new ResumeNotFoundException(uuid);
     }
     return doGet(searchKey);
@@ -33,7 +33,7 @@ public abstract class AbstractStorage implements Storage {
   public final void update(Resume r) {
     Objects.requireNonNull(r, "Resume must not be null");
     Object searchKey = getSearchKey(r.getUuid());
-    if (!isExist(searchKey)) {
+    if (!exists(searchKey)) {
       throw new ResumeNotFoundException(r.getUuid());
     }
     doUpdate(searchKey, r);
@@ -43,7 +43,7 @@ public abstract class AbstractStorage implements Storage {
   public final void delete(String uuid) {
     Objects.requireNonNull(uuid, "Uuid must not be null");
     Object searchKey = getSearchKey(uuid);
-    if (!isExist(searchKey)) {
+    if (!exists(searchKey)) {
       throw new ResumeNotFoundException(uuid);
     }
     doDelete(searchKey);
@@ -56,7 +56,7 @@ public abstract class AbstractStorage implements Storage {
         .toList();
   }
 
-  protected abstract boolean isExist(Object searchKey);
+  protected abstract boolean exists(Object searchKey);
 
   protected abstract void doSave(Object searchKey, Resume r);
 

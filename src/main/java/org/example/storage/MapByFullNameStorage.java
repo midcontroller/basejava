@@ -21,7 +21,7 @@ public class MapByFullNameStorage extends AbstractStorage {
   }
 
   @Override
-  protected boolean isExist(Object searchKey) {
+  protected boolean exists(Object searchKey) {
     return searchKey != null;
   }
 
