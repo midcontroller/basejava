@@ -5,34 +5,34 @@ import java.util.List;
 import org.example.exception.StorageOverflowException;
 import org.example.model.Resume;
 
-public abstract class AbstractArrayStorage extends AbstractStorage {
+public abstract class AbstractArrayStorage extends AbstractStorage<Integer> {
   protected static final int STORAGE_LIMIT = 100_000;
   protected final Resume[] storage = new Resume[STORAGE_LIMIT];
   protected int size = 0;
 
   @Override
-  protected void doSave(Object searchKey, Resume r) {
+  protected void doSave(Integer searchKey, Resume r) {
     if (size >= STORAGE_LIMIT) {
       throw new StorageOverflowException();
     }
 
-    insert((Integer) searchKey, r);
+    insert(searchKey, r);
     size++;
   }
 
   @Override
-  protected Resume doGet(Object searchKey) {
-    return storage[(Integer) searchKey];
+  protected Resume doGet(Integer searchKey) {
+    return storage[searchKey];
   }
 
   @Override
-  protected void doUpdate(Object searchKey, Resume r) {
-    storage[(Integer) searchKey] = r;
+  protected void doUpdate(Integer searchKey, Resume r) {
+    storage[searchKey] = r;
   }
 
   @Override
-  protected void doDelete(Object searchKey) {
-    remove((Integer) searchKey);
+  protected void doDelete(Integer searchKey) {
+    remove(searchKey);
     storage[size] = null;
     size--;
   }
@@ -54,8 +54,8 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
   }
 
   @Override
-  protected boolean exists(Object searchKey) {
-    return (Integer) searchKey >= 0;
+  protected boolean exists(Integer searchKey) {
+    return searchKey >= 0;
   }
 
   @Override

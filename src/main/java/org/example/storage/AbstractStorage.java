@@ -7,12 +7,12 @@ import org.example.exception.ResumeAlreadyExistsException;
 import org.example.exception.ResumeNotFoundException;
 import org.example.model.Resume;
 
-public abstract class AbstractStorage implements Storage {
+public abstract class AbstractStorage<K> implements Storage {
 
   @Override
   public final void save(Resume r) {
     Objects.requireNonNull(r, "Resume must not be null");
-    Object searchKey = getSearchKey(r.getUuid());
+    K searchKey = getSearchKey(r.getUuid());
     if (exists(searchKey)) {
       throw new ResumeAlreadyExistsException(r.getUuid());
     }
@@ -22,7 +22,7 @@ public abstract class AbstractStorage implements Storage {
   @Override
   public final Resume get(String uuid) {
     Objects.requireNonNull(uuid, "Uuid must not be null");
-    Object searchKey = getSearchKey(uuid);
+    K searchKey = getSearchKey(uuid);
     if (!exists(searchKey)) {
       throw new ResumeNotFoundException(uuid);
     }
@@ -32,7 +32,7 @@ public abstract class AbstractStorage implements Storage {
   @Override
   public final void update(Resume r) {
     Objects.requireNonNull(r, "Resume must not be null");
-    Object searchKey = getSearchKey(r.getUuid());
+    K searchKey = getSearchKey(r.getUuid());
     if (!exists(searchKey)) {
       throw new ResumeNotFoundException(r.getUuid());
     }
@@ -42,7 +42,7 @@ public abstract class AbstractStorage implements Storage {
   @Override
   public final void delete(String uuid) {
     Objects.requireNonNull(uuid, "Uuid must not be null");
-    Object searchKey = getSearchKey(uuid);
+    K searchKey = getSearchKey(uuid);
     if (!exists(searchKey)) {
       throw new ResumeNotFoundException(uuid);
     }
@@ -56,17 +56,17 @@ public abstract class AbstractStorage implements Storage {
         .toList();
   }
 
-  protected abstract boolean exists(Object searchKey);
+  protected abstract boolean exists(K searchKey);
 
-  protected abstract void doSave(Object searchKey, Resume r);
+  protected abstract void doSave(K searchKey, Resume r);
 
-  protected abstract Resume doGet(Object searchKey);
+  protected abstract Resume doGet(K searchKey);
 
-  protected abstract void doUpdate(Object searchKey, Resume r);
+  protected abstract void doUpdate(K searchKey, Resume r);
 
-  protected abstract void doDelete(Object searchKey);
+  protected abstract void doDelete(K searchKey);
 
-  protected abstract Object getSearchKey(String uuid);
+  protected abstract K getSearchKey(String uuid);
 
   protected abstract List<Resume> getAllAsList();
 }

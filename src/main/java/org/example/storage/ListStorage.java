@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.example.model.Resume;
 
-public class ListStorage extends AbstractStorage {
+public class ListStorage extends AbstractStorage<Integer> {
 
   private final List<Resume> storage = new ArrayList<>();
 
@@ -19,28 +19,28 @@ public class ListStorage extends AbstractStorage {
   }
 
   @Override
-  protected void doSave(Object searchKey, Resume r) {
+  protected void doSave(Integer searchKey, Resume r) {
     storage.add(r);
   }
 
   @Override
-  protected Resume doGet(Object searchKey) {
-    return storage.get((Integer) searchKey);
+  protected Resume doGet(Integer searchKey) {
+    return storage.get(searchKey);
   }
 
   @Override
-  protected void doUpdate(Object searchKey, Resume r) {
-    storage.set((Integer) searchKey, r);
+  protected void doUpdate(Integer searchKey, Resume r) {
+    storage.set(searchKey, r);
   }
 
   @Override
-  protected void doDelete(Object searchKey) {
-    int index = (Integer) searchKey;
+  protected void doDelete(Integer searchKey) {
+    int index = searchKey;
     storage.remove(index);
   }
 
   @Override
-  protected Object getSearchKey(String uuid) {
+  protected Integer getSearchKey(String uuid) {
     for (int i = 0; i < storage.size(); i++) {
       if (uuid.equals(storage.get(i).getUuid())) {
         return i;
@@ -50,7 +50,7 @@ public class ListStorage extends AbstractStorage {
   }
 
   @Override
-  protected boolean exists(Object searchKey) {
+  protected boolean exists(Integer searchKey) {
     return (Integer) searchKey >= 0;
   }
 
