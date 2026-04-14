@@ -42,7 +42,7 @@ public class MapFullNameStorage extends AbstractStorage<String> {
 
   @Override
   protected void doDelete(String searchKey) {
-    storage.remove((String) searchKey);
+    storage.remove(searchKey);
   }
 
   @Override
