@@ -1,36 +1,63 @@
 package org.example.model;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 
-public class Resume implements Comparable<Resume> {
+public final class Resume implements Comparable<Resume> {
   private final String uuid;
-  private final String fullName;
+  private final String fullname;
+  private final Map<ContactType, String> contacts;
+  private final Map<SectionType, Section> sections;
 
   public Resume() {
-    this(UUID.randomUUID().toString(), "Default Name");
+    this(UUID.randomUUID().toString());
   }
 
   public Resume(String uuid) {
-    this(Objects.requireNonNull(uuid), "Default name");
+    this(uuid, "Default Name");
   }
 
-  public Resume(String uuid, String fullName) {
-    this.uuid = Objects.requireNonNull(uuid, "Uuid must not be null");
+  public Resume(String uuid, String fullname) {
+    this(uuid, fullname, Map.of(), Map.of());
+  }
 
-    Objects.requireNonNull(fullName, "FullName must not be null");
-    if (fullName.isBlank()) {
-      throw new IllegalArgumentException();
+  public Resume(
+      String uuid,
+      String fullname,
+      Map<ContactType, String> contacts,
+      Map<SectionType, Section> sections) {
+    Objects.requireNonNull(uuid, "Uuid must not be null");
+    Objects.requireNonNull(fullname, "Fullname must not be null");
+    Objects.requireNonNull(contacts, "Contacts must not be null");
+    Objects.requireNonNull(sections, "Sections must not be null");
+    if (uuid.isBlank()) {
+      throw new IllegalArgumentException("Uuid must not be blank");
     }
-    this.fullName = fullName;
+    if (fullname.isBlank()) {
+      throw new IllegalArgumentException("Fullname must not be blank");
+    }
+    this.uuid = uuid;
+    this.fullname = fullname;
+    this.contacts = new HashMap<>(contacts);
+    this.sections = new HashMap<>(sections);
   }
 
   public String getUuid() {
     return uuid;
   }
 
-  public String getFullName() {
-    return fullName;
+  public String getFullname() {
+    return fullname;
+  }
+
+  public Map<ContactType, String> getContacts() {
+    return Map.copyOf(contacts);
+  }
+
+  public Map<SectionType, Section> getSections() {
+    return Map.copyOf(sections);
   }
 
   @Override
@@ -41,9 +68,7 @@ public class Resume implements Comparable<Resume> {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-
     Resume resume = (Resume) o;
-
     return uuid.equals(resume.uuid);
   }
 
@@ -53,12 +78,8 @@ public class Resume implements Comparable<Resume> {
   }
 
   @Override
-  public String toString() {
-    return uuid;
-  }
-
-  @Override
   public int compareTo(Resume o) {
+    Objects.requireNonNull(o, "Cannot compare with null");
     return uuid.compareTo(o.uuid);
   }
 }

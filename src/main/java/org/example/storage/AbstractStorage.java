@@ -52,7 +52,7 @@ public abstract class AbstractStorage<K> implements Storage {
   @Override
   public List<Resume> getAllSorted() {
     return getAllAsList().stream()
-        .sorted(Comparator.comparing(Resume::getFullName).thenComparing(Resume::getUuid))
+        .sorted(Comparator.comparing(Resume::getFullname).thenComparing(Resume::getUuid))
         .toList();
   }
 
