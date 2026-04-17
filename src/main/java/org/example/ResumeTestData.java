@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class ResumeTestData {
 
-    public static void main(String[] args) {
+    static void main(String[] args) {
         Resume resume = createResume("UUID_1", "Григорий Кислин");
         printResume(resume);
     }
