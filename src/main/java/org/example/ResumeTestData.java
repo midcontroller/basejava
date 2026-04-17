@@ -10,10 +10,7 @@ import java.util.Map;
 public class ResumeTestData {
 
     public static void main(String[] args) {
-        // 1. Создать резюме через createResume(uuid, fullName)
         Resume resume = createResume("UUID_1", "Григорий Кислин");
-
-        // 2. Вызвать printResume(resume) для вывода в консоль
         printResume(resume);
     }
 
@@ -102,6 +99,25 @@ public class ResumeTestData {
 
                         "Alcatel 09/1997 - 01/2005 Инженер по аппаратному и программному тестированию Тестирование, отладка, внедрение ПО цифровой телефонной станции Alcatel 100 S12 (CHILL, ASM)."
                 );
+        sections.put(SectionType.EXPERIENCE, new ListSection(experience));
+
+        List<String> education =
+                Arrays.asList(
+                        "Coursera 03/2013 - 05/2013 'Functional Programming Principles in Scala' by Martin Odersky",
+
+                        "Luxoft 03/2011 - 04/2011 Курс 'Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML.'",
+
+                        "Siemens AG 01/2005 - 04/2005 3 месяца обучения мобильным IN сетям (Берлин)",
+
+                        "Alcatel 09/1997 - 03/1998 6 месяцев обучения цифровым телефонным сетям (Москва)",
+
+                        "Санкт-Петербургский национальный исследовательский университет информационных технологий, механики и оптики 09/1993 - 07/1996",
+
+                        "Аспирантура (программист С, С++) 09/1987 - 07/1993 Инженер (программист Fortran, C)",
+
+                        "Заочная физико-техническая школа при МФТИ 09/1984 - 06/1987 Закончил с отличием"
+                );
+        sections.put(SectionType.EDUCATION, new ListSection(education));
 
         return new Resume(uuid, fullName, contacts, sections);
     }
@@ -110,7 +126,6 @@ public class ResumeTestData {
         System.out.println(resume.getFullname());
         System.out.println();
 
-        // Вывод контактов
         for (ContactType contactType : ContactType.values()) {
             String contact = resume.getContacts().get(contactType);
             if (contact != null) {
@@ -119,7 +134,6 @@ public class ResumeTestData {
         }
         System.out.println();
 
-        // Вывод секций
         for (SectionType sectionType : SectionType.values()) {
             Section section = resume.getSections().get(sectionType);
             if (section != null) {
