@@ -8,8 +8,8 @@ import java.util.UUID;
 public final class Resume implements Comparable<Resume> {
   private final String uuid;
   private final String fullname;
-  private final Map<ContactType, String> contacts;
-  private final Map<SectionType, Section> sections;
+  private final Map<ContactType, AbstractSection> contacts;
+  private final Map<SectionType, AbstractSection> sections;
 
   public Resume() {
     this(UUID.randomUUID().toString());
@@ -20,14 +20,15 @@ public final class Resume implements Comparable<Resume> {
   }
 
   public Resume(String uuid, String fullname) {
-    this(uuid, fullname, Map.of(), Map.of());
+    this(uuid, fullname, new HashMap<>());
   }
 
-  public Resume(
-      String uuid,
-      String fullname,
-      Map<ContactType, String> contacts,
-      Map<SectionType, Section> sections) {
+  public Resume(String uuid, String fullname, Map<ContactType, AbstractSection> contacts) {
+    this(uuid, fullname, contacts, new HashMap<>());
+  }
+
+  public Resume(String uuid, String fullname, Map<ContactType, AbstractSection> contacts,
+      Map<SectionType, AbstractSection> sections) {
     Objects.requireNonNull(uuid, "Uuid must not be null");
     Objects.requireNonNull(fullname, "Fullname must not be null");
     Objects.requireNonNull(contacts, "Contacts must not be null");
@@ -52,11 +53,11 @@ public final class Resume implements Comparable<Resume> {
     return fullname;
   }
 
-  public Map<ContactType, String> getContacts() {
+  public Map<ContactType, AbstractSection> getContacts() {
     return Map.copyOf(contacts);
   }
 
-  public Map<SectionType, Section> getSections() {
+  public Map<SectionType, AbstractSection> getSections() {
     return Map.copyOf(sections);
   }
 
