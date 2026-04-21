@@ -2,11 +2,7 @@ package org.example;
 
 import org.example.model.ContactType;
 import org.example.model.AbstractSection;
-<<<<<<< HEAD
 import org.example.model.ListSection;
-=======
-import org.example.model.ListContent;
->>>>>>> origin/main
 import org.example.model.Resume;
 import org.example.model.SectionType;
 import org.example.model.TextSection;
@@ -17,14 +13,13 @@ import java.util.Map;
 
 public class ResumeTestData {
 
-        static void main(String[] args) {
+        public static void main(String[] args) {
                 Resume resume = createResume("UUID_1", "Григорий Кислин");
                 printResume(resume);
         }
 
         private static Resume createResume(String uuid, String fullName) {
                 final Map<ContactType, AbstractSection> contacts = new HashMap<>();
-<<<<<<< HEAD
                 contacts.put(ContactType.PHONE, new TextSection("+7(921) 855-0482"));
                 contacts.put(ContactType.SKYPE, new TextSection("skype:grigory.kislin"));
                 contacts.put(ContactType.EMAIL, new TextSection("gkislin@yandex.ru"));
@@ -35,18 +30,6 @@ public class ResumeTestData {
 
                 final Map<SectionType, AbstractSection> sections = new HashMap<>();
                 sections.put(SectionType.OBJECTIVE, new TextSection(
-=======
-                contacts.put(ContactType.PHONE, new TextContent("+7(921) 855-0482"));
-                contacts.put(ContactType.SKYPE, new TextContent("skype:grigory.kislin"));
-                contacts.put(ContactType.EMAIL, new TextContent("gkislin@yandex.ru"));
-                contacts.put(ContactType.LINKEDIN, new TextContent("Профиль LinkedIn"));
-                contacts.put(ContactType.GITHUB, new TextContent("Профиль GitHub"));
-                contacts.put(ContactType.STACKOVERFLOW, new TextContent("Профиль StackOverflow"));
-                contacts.put(ContactType.HOMEPAGE, new TextContent("Домашняя страница"));
-
-                final Map<SectionType, AbstractSection> sections = new HashMap<>();
-                sections.put(SectionType.OBJECTIVE, new TextContent(
->>>>>>> origin/main
                                 "Ведущий стажировок и корпоративного обучения по Java Web и Enterprise технологиям"));
                 sections.put(SectionType.PERSONAL, new TextSection(
                                 "Аналитический склад ума, сильная логика, креативность, инициативность. Пурист кода и архитектуры."));
