@@ -1,5 +1,7 @@
 package org.example.storage;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import org.example.exception.ResumeAlreadyExistsException;
 import org.example.exception.ResumeNotFoundException;
 import org.example.model.Resume;
@@ -8,8 +10,6 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public abstract class AbstractStorageTest {
 

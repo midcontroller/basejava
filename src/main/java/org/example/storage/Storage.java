@@ -1,20 +1,21 @@
 package org.example.storage;
 
-import java.util.List;
 import org.example.model.Resume;
 
+import java.util.List;
+
 public interface Storage {
-  void save(Resume r);
+    void save(Resume r);
 
-  Resume get(String uuid);
+    Resume get(String uuid);
 
-  void update(Resume r);
+    void update(Resume r);
 
-  void delete(String uuid);
+    void delete(String uuid);
 
-  int size();
+    int size();
 
-  List<Resume> getAllSorted();
+    List<Resume> getAllSorted();
 
-  void clear();
+    void clear();
 }

@@ -1,7 +1,7 @@
 package org.example.storage;
 
 public class MapUuidStorageTest extends AbstractStorageTest {
-  public MapUuidStorageTest() {
-    super(new MapUuidStorage());
-  }
+    public MapUuidStorageTest() {
+        super(new MapUuidStorage());
+    }
 }

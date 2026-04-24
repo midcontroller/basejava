@@ -27,7 +27,10 @@ public final class Resume implements Comparable<Resume> {
         this(uuid, fullname, contacts, new EnumMap<>(SectionType.class));
     }
 
-    public Resume(String uuid, String fullname, Map<ContactType, AbstractContent> contacts,
+    public Resume(
+            String uuid,
+            String fullname,
+            Map<ContactType, AbstractContent> contacts,
             Map<SectionType, AbstractContent> sections) {
         Objects.requireNonNull(uuid, "uuid must not be null");
         Objects.requireNonNull(fullname, "fullname must not be null");
