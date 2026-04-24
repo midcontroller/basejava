@@ -1,6 +1,6 @@
 package org.example.model;
 
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
@@ -20,11 +20,11 @@ public final class Resume implements Comparable<Resume> {
     }
 
     public Resume(String uuid, String fullname) {
-        this(uuid, fullname, new HashMap<>());
+        this(uuid, fullname, new EnumMap<>(ContactType.class));
     }
 
     public Resume(String uuid, String fullname, Map<ContactType, AbstractContent> contacts) {
-        this(uuid, fullname, contacts, new HashMap<>());
+        this(uuid, fullname, contacts, new EnumMap<>(SectionType.class));
     }
 
     public Resume(String uuid, String fullname, Map<ContactType, AbstractContent> contacts,
@@ -41,8 +41,8 @@ public final class Resume implements Comparable<Resume> {
         }
         this.uuid = uuid;
         this.fullname = fullname;
-        this.contacts = new HashMap<>(contacts);
-        this.sections = new HashMap<>(sections);
+        this.contacts = new EnumMap<>(contacts);
+        this.sections = new EnumMap<>(sections);
     }
 
     public String getUuid() {
