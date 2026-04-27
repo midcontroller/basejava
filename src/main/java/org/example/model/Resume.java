@@ -51,11 +51,11 @@ public final class Resume implements Comparable<Resume> {
         return Map.copyOf(sections);
     }
 
-    public void setContacts(ContactType type, Section section) {
+    public void addContacts(ContactType type, Section section) {
         contacts.put(type, section);
     }
 
-    public void setSection(SectionType type, Section section) {
+    public void addSection(SectionType type, Section section) {
         sections.put(type, section);
     }
 
