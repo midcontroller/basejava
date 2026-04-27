@@ -2,9 +2,7 @@ package org.example;
 
 import java.time.YearMonth;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.example.model.ContactType;
 import org.example.model.ListSection;
@@ -20,49 +18,41 @@ public class ResumeTestData {
 
     public static void main(String[] args) {
         Resume resume = createResume("UUID_1", "Григорий Кислин");
-        createContacts();
-        createSections();
-
+        createContacts(resume);
+        createSections(resume);
         printResume(resume);
     }
 
-    private static Resume createResume(String uuid, String fullName) {
+    public static Resume createResume(String uuid, String fullName) {
         return new Resume(uuid, fullName);
     }
 
-    private static Map<ContactType, Section> createContacts() {
-        Map<ContactType, Section> contacts = new HashMap<>();
-        contacts.put(ContactType.PHONE, new TextSection("+7(921) 855-0482"));
-        contacts.put(ContactType.SKYPE, new TextSection("skype:grigory.kislin"));
-        contacts.put(ContactType.EMAIL, new TextSection("gkislin@yandex.ru"));
-        contacts.put(ContactType.LINKEDIN, new TextSection("Профиль LinkedIn"));
-        contacts.put(ContactType.GITHUB, new TextSection("Профиль GitHub"));
-        contacts.put(ContactType.STACKOVERFLOW, new TextSection("Профиль StackOverflow"));
-        contacts.put(ContactType.HOMEPAGE, new TextSection("Домашняя страница"));
-        return contacts;
+    private static void createContacts(Resume resume) {
+        resume.addContacts(ContactType.PHONE, new TextSection("+7(921) 855-0482"));
+        resume.addContacts(ContactType.SKYPE, new TextSection("skype:grigory.kislin"));
+        resume.addContacts(ContactType.EMAIL, new TextSection("gkislin@yandex.ru"));
+        resume.addContacts(ContactType.LINKEDIN, new TextSection("Профиль LinkedIn"));
+        resume.addContacts(ContactType.GITHUB, new TextSection("Профиль GitHub"));
+        resume.addContacts(ContactType.STACKOVERFLOW, new TextSection("Профиль StackOverflow"));
+        resume.addContacts(ContactType.HOMEPAGE, new TextSection("Домашняя страница"));
     }
 
-    private static Map<SectionType, Section> createSections() {
-        Map<SectionType, Section> sections = new HashMap<>();
-        sections.put(
+    private static void createSections(Resume resume) {
+        resume.addSection(
                 SectionType.OBJECTIVE,
                 new TextSection(
                         "Ведущий стажировок и корпоративного обучения по Java Web и Enterprise технологиям"));
 
-        sections.put(
+        resume.addSection(
                 SectionType.PERSONAL,
                 new TextSection(
                         "Аналитический склад ума, сильная логика, креативность, инициативность. Пурист кода и"
                                 + " архитектуры."));
 
-        sections.put(SectionType.ACHIEVEMENT, new ListSection(createAchievements()));
-
-        sections.put(SectionType.QUALIFICATIONS, new ListSection(createQualifications()));
-
-        sections.put(SectionType.EXPERIENCE, new OrganizationSection(createExperience()));
-
-        sections.put(SectionType.EDUCATION, new OrganizationSection(createEducation()));
-        return sections;
+        resume.addSection(SectionType.ACHIEVEMENT, new ListSection(createAchievements()));
+        resume.addSection(SectionType.QUALIFICATIONS, new ListSection(createQualifications()));
+        resume.addSection(SectionType.EXPERIENCE, new OrganizationSection(createExperience()));
+        resume.addSection(SectionType.EDUCATION, new OrganizationSection(createEducation()));
     }
 
     private static List<String> createAchievements() {
@@ -277,7 +267,9 @@ public class ResumeTestData {
                         "https://school.mipt.ru/",
                         Arrays.asList(
                                 new Position(
-                                        YearMonth.of(1984, 9), YearMonth.of(1987, 6), "Закончил с отличием", null))));
+                                        YearMonth.of(1984, 9),
+                                        YearMonth.of(1987, 6),
+                                        "Закончил с отличием", null))));
     }
 
     private static void printResume(Resume resume) {
@@ -323,7 +315,8 @@ public class ResumeTestData {
                     for (Position position : org.positions()) {
                         String dateRange = position.startDate()
                                 + " - "
-                                + (position.endDate() != null ? position.endDate() : "Сейчас");
+                                + (position.endDate() != null ? position.endDate()
+                                        : "Сейчас");
                         System.out.println("    " + dateRange);
                         System.out.println("    " + position.title());
 
