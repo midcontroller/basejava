@@ -59,6 +59,9 @@
         <version>${surefire.version}</version>
         <configuration>
           <useModulePath>false</useModulePath>
+          <includes>
+            <include>AllStorageTest.java</include>
+          </includes>
         </configuration>
       </plugin>
     </plugins>

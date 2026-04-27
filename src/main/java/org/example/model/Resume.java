@@ -51,11 +51,11 @@ public final class Resume implements Comparable<Resume> {
         return Map.copyOf(sections);
     }
 
-    public void addContacts(ContactType type, Section section) {
+    public void setContacts(ContactType type, Section section) {
         contacts.put(type, section);
     }
 
-    public void addSection(SectionType type, Section section) {
+    public void setSection(SectionType type, Section section) {
         sections.put(type, section);
     }
 
@@ -68,12 +68,15 @@ public final class Resume implements Comparable<Resume> {
             return false;
         }
         Resume resume = (Resume) o;
-        return uuid.equals(resume.uuid);
+        return Objects.equals(uuid, resume.uuid)
+                && Objects.equals(fullName, resume.fullName)
+                && Objects.equals(contacts, resume.contacts)
+                && Objects.equals(sections, resume.sections);
     }
 
     @Override
     public int hashCode() {
-        return uuid.hashCode();
+        return Objects.hash(uuid, fullName, contacts, sections);
     }
 
     @Override
