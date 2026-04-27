@@ -1,14 +1,25 @@
 package org.example.model;
 
 public enum SectionType {
-    PERSONAL,
-    OBJECTIVE,
-    ACHIEVEMENT,
-    QUALIFICATIONS,
-    EXPERIENCE,
-    EDUCATION;
+    PERSONAL("Личные данные"),
+    OBJECTIVE("Позиция"),
+    ACHIEVEMENT("Достижения"),
+    QUALIFICATIONS("Квалификация"),
+    EXPERIENCE("Опыт работы"),
+    EDUCATION("Образование");
+
+    private final String title;
+
+    SectionType(String title) {
+        this.title = title;
+    }
 
     public String getTitle() {
-        return name() + ": ";
+        return title;
+    }
+
+    @Override
+    public String toString() {
+        return title;
     }
 }

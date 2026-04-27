@@ -7,61 +7,56 @@ import java.util.UUID;
 
 public final class Resume implements Comparable<Resume> {
     private final String uuid;
-    private final String fullname;
-    private final Map<ContactType, AbstractContent> contacts;
-    private final Map<SectionType, AbstractContent> sections;
+    private final String fullName;
+    private final Map<ContactType, Section> contacts = new EnumMap<>(ContactType.class);
+    private final Map<SectionType, Section> sections = new EnumMap<>(SectionType.class);
 
     public Resume() {
         this(UUID.randomUUID().toString());
     }
 
     public Resume(String uuid) {
-        this(uuid, "Default Name");
-    }
-
-    public Resume(String uuid, String fullname) {
-        this(uuid, fullname, new EnumMap<>(ContactType.class));
-    }
-
-    public Resume(String uuid, String fullname, Map<ContactType, AbstractContent> contacts) {
-        this(uuid, fullname, contacts, new EnumMap<>(SectionType.class));
+        this(uuid, "Default name");
     }
 
     public Resume(
             String uuid,
-            String fullname,
-            Map<ContactType, AbstractContent> contacts,
-            Map<SectionType, AbstractContent> sections) {
-        Objects.requireNonNull(uuid, "uuid must not be null");
-        Objects.requireNonNull(fullname, "fullname must not be null");
-        Objects.requireNonNull(contacts, "contacts must not be null");
-        Objects.requireNonNull(sections, "sections must not be null");
+            String fullName) {
+        Objects.requireNonNull(uuid, "uuid cannot be null");
         if (uuid.isBlank()) {
-            throw new IllegalArgumentException("uuid must not be blank");
-        }
-        if (fullname.isBlank()) {
-            throw new IllegalArgumentException("fullname must not be blank");
+            throw new IllegalArgumentException("uuid cannot be blank");
         }
         this.uuid = uuid;
-        this.fullname = fullname;
-        this.contacts = new EnumMap<>(contacts);
-        this.sections = new EnumMap<>(sections);
+
+        Objects.requireNonNull(fullName, "fullName cannot be null");
+        if (fullName.isBlank()) {
+            throw new IllegalArgumentException("fullName cannot be blank");
+        }
+        this.fullName = fullName;
     }
 
     public String getUuid() {
         return uuid;
     }
 
-    public String getFullname() {
-        return fullname;
+    public String getFullName() {
+        return fullName;
     }
 
-    public Map<ContactType, AbstractContent> getContacts() {
+    public Map<ContactType, Section> getContacts() {
         return Map.copyOf(contacts);
     }
 
-    public Map<SectionType, AbstractContent> getSections() {
+    public Map<SectionType, Section> getSections() {
         return Map.copyOf(sections);
+    }
+
+    public void addContacts(ContactType type, Section section) {
+        contacts.put(type, section);
+    }
+
+    public void addSection(SectionType type, Section section) {
+        sections.put(type, section);
     }
 
     @Override

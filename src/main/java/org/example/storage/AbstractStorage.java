@@ -1,12 +1,12 @@
 package org.example.storage;
 
-import org.example.exception.ResumeAlreadyExistsException;
-import org.example.exception.ResumeNotFoundException;
-import org.example.model.Resume;
-
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
+
+import org.example.exception.ResumeAlreadyExistsException;
+import org.example.exception.ResumeNotFoundException;
+import org.example.model.Resume;
 
 public abstract class AbstractStorage<K> implements Storage {
 
@@ -53,7 +53,7 @@ public abstract class AbstractStorage<K> implements Storage {
     @Override
     public List<Resume> getAllSorted() {
         return getAllAsList().stream()
-                .sorted(Comparator.comparing(Resume::getFullname).thenComparing(Resume::getUuid))
+                .sorted(Comparator.comparing(Resume::getFullName).thenComparing(Resume::getUuid))
                 .toList();
     }
 

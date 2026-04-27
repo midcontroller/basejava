@@ -2,8 +2,8 @@ package org.example.model;
 
 import java.util.Objects;
 
-public record TextContent(String text) implements AbstractContent {
-    public TextContent {
+public record TextSection(String text) implements Section {
+    public TextSection {
         Objects.requireNonNull(text);
     }
 }
