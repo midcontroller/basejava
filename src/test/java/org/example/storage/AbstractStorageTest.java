@@ -1,6 +1,12 @@
 package org.example.storage;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.example.ResumeTestData.createResume;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertIterableEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.util.Arrays;
+import java.util.List;
 
 import org.example.exception.ResumeAlreadyExistsException;
 import org.example.exception.ResumeNotFoundException;
@@ -8,21 +14,19 @@ import org.example.model.Resume;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-import java.util.List;
-
 public abstract class AbstractStorageTest {
 
-    protected static final String UUID_1 = "uuid1";
-
-    protected static final String UUID_2 = "uuid2";
-    protected static final String UUID_3 = "uuid3";
-    protected static final String UUID_4 = "uuid4";
+    protected static final String UUID_1 = "UUID_1";
+    protected static final String UUID_2 = "UUID_2";
+    protected static final String UUID_3 = "UUID_3";
+    protected static final String UUID_4 = "UUID_4";
+    protected static final String UUID_5 = "UUID_5";
     protected static final String MISSING = "missing";
-    protected static final Resume R1 = new Resume(UUID_1);
-    protected static final Resume R2 = new Resume(UUID_2);
-    protected static final Resume R3 = new Resume(UUID_3);
-    protected static final Resume R4 = new Resume(UUID_4);
+    protected static final Resume R1 = createResume("UUID_1", "Григорий Кислин");
+    protected static final Resume R2 = createResume("UUID_2", "Д Д");
+    protected static final Resume R3 = createResume("UUID_3", "Е Е");
+    protected static final Resume R4 = createResume("UUID_4", "Ж Ж");
+    protected static final Resume R5 = createResume("UUID_5", "З З");
     protected final Storage storage;
 
     protected AbstractStorageTest(Storage storage) {
@@ -35,6 +39,7 @@ public abstract class AbstractStorageTest {
         storage.save(R1);
         storage.save(R2);
         storage.save(R3);
+        storage.save(R4);
     }
 
     @Test
@@ -46,8 +51,8 @@ public abstract class AbstractStorageTest {
 
     @Test
     void save_whenStorageNotEmpty_savesResume() {
-        storage.save(R4);
-        assertEquals(R4, storage.get(UUID_4));
+        storage.save(R5);
+        assertEquals(R5, storage.get(UUID_5));
     }
 
     @Test
@@ -94,17 +99,17 @@ public abstract class AbstractStorageTest {
 
     @Test
     void size_whenStorageNotEmpty_returnsSize() {
-        assertEquals(3, storage.size());
+        assertEquals(4, storage.size());
     }
 
     @Test
     void getAll_whenStorageNotEmpty_returnsAllResumes() {
-        assertIterableEquals(Arrays.asList(R1, R2, R3), storage.getAllSorted());
+        assertIterableEquals(Arrays.asList(R1, R2, R3, R4), storage.getAllSorted());
     }
 
     @Test
     void clear_whenStorageNotEmpty_clearsStorage() {
-        assertEquals(3, storage.size());
+        assertEquals(4, storage.size());
         storage.clear();
         assertIterableEquals(List.of(), storage.getAllSorted());
         assertEquals(0, storage.size());

@@ -23,8 +23,11 @@ public class ResumeTestData {
         printResume(resume);
     }
 
-    private static Resume createResume(String uuid, String fullName) {
-        return new Resume(uuid, fullName);
+    public static Resume createResume(String uuid, String fullName) {
+        Resume resume = new Resume(uuid, fullName);
+        createContacts(resume);
+        createSections(resume);
+        return resume;
     }
 
     private static void createContacts(Resume resume) {
